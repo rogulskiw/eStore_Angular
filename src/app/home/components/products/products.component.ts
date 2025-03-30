@@ -1,19 +1,17 @@
 import { Component } from '@angular/core';
-import { ProductsStoreItem } from '../../services/product/products.storeItem';
-import { Product } from '../../types/products.type';
-import { CartStoreItem } from '../../services/cart/cart.storeItem';
+import { ProductsService } from './products.service';
+import { ProductListItem } from './products.type';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
-  styleUrls: ['./products.component.scss'], 
+  styleUrls: ['./products.component.scss'],
+  providers: [ProductsService],
 })
 export class ProductsComponent {
+  products: ProductListItem[] = [];
 
-  constructor(public productStore: ProductsStoreItem, private cart: CartStoreItem){}
-
-  addToCart(product: Product){
-    this.cart.addProduct(product);
+  constructor(productsService: ProductsService) {
+    this.products = productsService.getProductsList();
   }
-
 }

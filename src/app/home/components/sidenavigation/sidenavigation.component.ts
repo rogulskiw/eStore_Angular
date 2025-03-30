@@ -1,38 +1,25 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
+import { CategoryService } from '../../services/category.service';
 import { Category } from '../../types/category.type';
-import { OnDestroy } from '@angular/core';
-import { CategoriesStoreItem } from '../../services/category/categories.storeItems';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-sidenavigation',
   templateUrl: './sidenavigation.component.html',
   styleUrls: ['./sidenavigation.component.scss']
 })
-export class SidenavigationComponent implements OnDestroy {
-  @Output()
-  subCategoryClicked: EventEmitter<number> = new EventEmitter<number>();
-  categories: Category[] = []; 
-  subscriptions: Subscription = new Subscription();
-
-  constructor(categoryStore: CategoriesStoreItem){
-    this.subscriptions.add(categoryStore.categories$.subscribe((categories) => {
-      this.categories = categories;
-    })
-  );
+export class SidenavigationComponent {
+  categories: Category[] = [];
+  constructor(categoryService: CategoryService) {
+    this.categories = categoryService.getAllCategories();
   }
 
   getCategories(parentCategoryId?: number): Category[] {
     return this.categories.filter(
-    (category) => parentCategoryId ? category.parent_category_id === parentCategoryId : 
-    category.parent_category_id === null
-  );
-};
+      (category) => category.parent_category_id === parentCategoryId 
+    );
+  }
 
-onSubCategoryClick(subCategory: Category): void {
-  this.subCategoryClicked.emit(subCategory.id)
-}
-ngOnDestroy(): void {
-  this.subscriptions.unsubscribe();
-}
+  onSubCategoryClick(subCategory: Category): void{
+    return subCategory.id;
+  }
 }
