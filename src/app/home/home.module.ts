@@ -7,6 +7,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SidenavigationComponent } from './components/sidenavigation/sidenavigation.component';
 import { ProductsComponent } from './components/products/products.component';
 import { SharedModule } from '../shared/shared.module';
+import { products } from './components/products/products.data';
 
 @NgModule({
   declarations: [

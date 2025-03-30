@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { CategoryService } from '../../services/category.service';
 import { Category } from '../../types/category.type';
 
@@ -9,8 +9,14 @@ import { Category } from '../../types/category.type';
 })
 export class SidenavigationComponent {
   categories: Category[] = [];
+  @Output() categorySelected = new EventEmitter<string>();
+
   constructor(categoryService: CategoryService) {
     this.categories = categoryService.getAllCategories();
+  }
+
+  selectCategory(category: number){
+    this.categorySelected.emit(category);
   }
 
   getCategories(parentCategoryId?: number): Category[] {
@@ -19,7 +25,4 @@ export class SidenavigationComponent {
     );
   }
 
-  onSubCategoryClick(subCategory: Category): void{
-    return subCategory.id;
-  }
 }

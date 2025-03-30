@@ -1,6 +1,8 @@
 import { race } from 'rxjs';
 import { ProductListItem } from './products.type';
 
+
+
 export const products: ProductListItem[] = [
   {
     id: 1,
@@ -85,3 +87,5 @@ export const products: ProductListItem[] = [
   },
 
 ];
+
+
